@@ -25,7 +25,10 @@ import os
 
 
 load_dotenv()
-GROQ_API_KEY=os.environ['GROQ_API_KEY']
+try:
+    GROQ_API_KEY=os.environ['GROQ_API_KEY']
+except:
+    GROQ_API_KEY=st.secrets['GROQ_API_KEY']
 
 loader=PyPDFLoader('data/loan_data.pdf')
 docs=loader.load()
@@ -49,7 +52,7 @@ gradient_text_html = """
     display: inline;
 }
 </style>
-<h2>LoanAssist by <span class="gradient-text">SmartBank</span></h2>
+<h2 style="padding-top: 0;">LoanAssist by <span class="gradient-text">SmartBank</span></h2>
 """
 
 system_message=f"""
