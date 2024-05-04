@@ -142,3 +142,31 @@ Guidelines:
 2. Instead of explicitly stating that you don't have enough information, focus on redirecting the user to alternative sources or suggesting they contact the appropriate channels for assistance.  
 - Keep your responses concise wherever possible unless you have to provide additional details.
 """
+
+gradient_text_html = """
+<style>
+.gradient-text {
+    font-weight: bold;
+    background: -webkit-linear-gradient(left, red, orange);
+    background: linear-gradient(to right, red, orange);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline;
+}
+</style>
+<h2 style="padding-top: 0;">LoanAssist by <span class="gradient-text">SmartBank</span></h2>
+"""
+
+welcome_message=r"""
+👋 **Hello!** Welcome to **SmartBank**'s loan assistance service! I'm thrilled to meet you and assist you with all your loan-related inquiries. Whether you're exploring loan options, need assistance with applications, or have questions about our products, I'm here to help.
+
+Here are some things I can do for you:
+
+    🔍 Check eligibility for different loan types.
+    ❗ Provide detailed information about our loan products.
+    📝 Guide you through the loan application process.
+    ❓ Answer frequently asked questions.
+    💡 Offer personalized recommendations based on your financial situation.
+
+So, how can I assist you with today?
+"""

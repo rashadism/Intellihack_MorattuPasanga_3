@@ -18,7 +18,7 @@ from langchain_community.vectorstores import FAISS
 
 from langchain.memory import ChatMessageHistory
 
-import system_prompt.system_message as system_prompt
+import texts
 
 load_dotenv()
 
@@ -41,8 +41,7 @@ formatted_docs = format_docs(docs)
 # text_splitter=RecursiveCharacterTextSplitter(chunk_size=1000,chunk_overlap=200)
 # documents=text_splitter.split_documents(docs)
 
-system_message = system_prompt.format(formatted_docs=formatted_docs)
-print(system_message)
+system_message = texts.system_message.format(formatted_docs=formatted_docs)
 prompt = ChatPromptTemplate.from_messages(
     [
         ("system", system_message),
@@ -61,7 +60,7 @@ chat_history = ChatMessageHistory()
 msgs = StreamlitChatMessageHistory(key="chat_messages")
 
 if len(msgs.messages) == 0:
-    msgs.add_ai_message(welcome_message)
+    msgs.add_ai_message(texts.welcome_message)
 
 history_chain = RunnableWithMessageHistory(
     chain,
@@ -70,7 +69,7 @@ history_chain = RunnableWithMessageHistory(
     history_messages_key="history"
 )
 
-st.markdown(gradient_text_html, unsafe_allow_html=True)
+st.markdown(texts.gradient_text_html, unsafe_allow_html=True)
 
 for msg in msgs.messages:
     msg_type=msg.type
