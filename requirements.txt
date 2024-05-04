@@ -6,3 +6,5 @@ python-dotenv
 groq
 langchain-groq
 ipykernel
+faiss-cpu
+pypdf
