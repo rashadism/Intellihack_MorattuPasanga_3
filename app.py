@@ -7,10 +7,7 @@ from langchain_groq import ChatGroq
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 
-import streamlit as st
-import os
-
 load_dotenv()
-GROQ_API_KEY=os.environ['GROQ_API_KEY']
+GROQ_API_KEY = os.environ['GROQ_API_KEY']
 
-llm=ChatGroq(model="llama3-70b-8192")
+llm = ChatGroq(model="llama3-70b-8192")
