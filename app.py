@@ -21,7 +21,12 @@ from langchain.memory import ChatMessageHistory
 import system_prompt.system_message as system_prompt
 
 load_dotenv()
-GROQ_API_KEY = os.environ['GROQ_API_KEY']
+
+try:
+    GROQ_API_KEY=os.environ['GROQ_API_KEY']
+except:
+    GROQ_API_KEY=st.secrets['GROQ_API_KEY']
+    
 
 loader = PyPDFLoader('data/loan_data.pdf')
 docs = loader.load()
@@ -56,7 +61,7 @@ chat_history = ChatMessageHistory()
 msgs = StreamlitChatMessageHistory(key="chat_messages")
 
 if len(msgs.messages) == 0:
-    msgs.add_ai_message("Hi I am your banking assistant. How can I help you?")
+    msgs.add_ai_message(welcome_message)
 
 history_chain = RunnableWithMessageHistory(
     chain,
@@ -65,12 +70,17 @@ history_chain = RunnableWithMessageHistory(
     history_messages_key="history"
 )
 
+st.markdown(gradient_text_html, unsafe_allow_html=True)
+
 for msg in msgs.messages:
-    st.chat_message(msg.type).write(msg.content)
+    msg_type=msg.type
+    avatar="🤖" if msg_type == "ai" else "🧐"
+    st.chat_message(msg.type, avatar=avatar).write(msg.content)
 
 if prompt := st.chat_input():
-    st.chat_message("human").write(prompt)
+    st.chat_message("human", avatar="🧐").write(prompt)
 
     config = {"configurable": {"session_id": "any"}}
+
     response = history_chain.invoke({"question": prompt}, config)
-    st.chat_message("ai").write(response)
+    st.chat_message("ai", avatar="🤖").write(response)
